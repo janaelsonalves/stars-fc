@@ -1,3 +1,22 @@
 page-athlete-details {
 
+    .grid-header{
+        font-weight: bold;        
+    }
+
+    .col .col-center{
+        align-self: center;
+    }
+
+    .col-left{
+        align-self: flex-start;
+    }
+
+    .col-right{
+        text-align: right;;
+    }
+
+    .item-row-center{
+        text-align: center;
+    }
 }

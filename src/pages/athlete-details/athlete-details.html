@@ -10,15 +10,27 @@
     <ion-title>athlete-details</ion-title>
   </ion-navbar>
 
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="scoutType">
+      <ion-segment-button value="all">
+        All
+      </ion-segment-button>
+      <ion-segment-button value="attack">
+        Atack
+      </ion-segment-button>
+      <ion-segment-button value="defense">
+        Defense
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
 </ion-header>
 
 
 <ion-content padding>
 
   <ion-card>
-    <ion-card-title>
-    </ion-card-title>
-    <ion-card-content>
+    <ion-card-header>
       <ion-item>
         <ion-avatar item-start>
           <img style="height: 48px; width: 48px;" src="https://s.glbimg.com/es/sde/f/2018/05/18/d4072db4bdda7615aec2517449afe555_140x140.png"
@@ -26,7 +38,40 @@
         </ion-avatar>
         <h2>{{athlete.apelido}}</h2>
       </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <div [ngSwitch]="scoutType">
 
+        <ion-item *ngSwitchCase="'all'">
+          <ion-grid>
+            <ion-row class="item-row-center grid-header">
+              <ion-col col->Scout</ion-col>
+              <ion-col col-4>Quantidade</ion-col>
+              <ion-col col-4>Pontos</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let scout of scouts" class="item-row-center">
+              <ion-col col-4 class="col-center">
+                {{scout?.scout.sigla}}
+              </ion-col>
+              <ion-col col-4>
+                {{scout?.quantity}}
+              </ion-col>
+              <ion-col col-4 class="col-right" [style.color]="scout?.total &lt; 0 ? 'red' : 'auto'">
+                {{scout?.total | number:'1.2-2':'pt-Br'}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <ion-item *ngSwitchCase="'attack'">
+
+        </ion-item>
+
+        <ion-item *ngSwitchCase="'defense'">
+
+        </ion-item>
+
+      </div>
     </ion-card-content>
   </ion-card>
 

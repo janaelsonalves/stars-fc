@@ -22,19 +22,8 @@ export class AthletesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private cartola: CartolaProvider) {
     this.cartola.getAllData()
       .subscribe(data => {
+        this.data = data;
         this.athletes = data['atletas'];
-        let prov: any[] = [];
-        this.athletes.filter(el => {
-          if (el.status_id == 7) {
-            prov.push(el);
-          }
-          return el;
-        })
-        this.athletes = prov;
-        console.log(this.athletes);
-        console.log(prov.length);
-
-
       })
   }
 
