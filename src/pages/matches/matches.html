@@ -1,0 +1,139 @@
+<!--
+  Generated template for the MatchesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>matches</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<!-- <ion-content padding>
+  <ion-card>
+    <ion-card-header>Rodada {{info?.rodada}}</ion-card-header>
+    <ion-card-content>
+      <ion-item *ngFor="let p of info?.partidas">
+        <ion-row width-100 center>
+          <ion-col width-45>
+            <div style="display: flex; flex-direction: col; flex: 1">
+              <img class="team-holder" src="{{getTeamById(p.clube_casa_id)?.escudos['30x30']}}" alt=""> {{getTeamById(p.clube_casa_id)?.posicao}}
+            </div>
+          </ion-col>
+          <ion-col width-10>X</ion-col>
+          <ion-col width-45>
+            <div style="display: flex; flex-direction: col; flex: 1">
+              <strong> {{getTeamById(p.clube_visitante_id)?.posicao}}</strong>
+              <img class="team-holder" src="{{getTeamById(p.clube_visitante_id)?.escudos['30x30']}}" alt="">
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content> -->
+
+<!-- <ion-content padding>
+  <ion-grid text-center>
+    <ion-row *ngFor="let p of info?.partidas" align-items-end>
+      <ion-col col-5 align-self-center>
+        <ion-col col-3 align-self-center>
+          {{p?.aproveitamento_mandante[0]}}
+        </ion-col>
+        <ion-col col-3>
+          {{p?.clube_casa_posicao}}&deg;
+        </ion-col>
+        <ion-col col-3>
+          <img class="team-holder" src="{{getTeamById(p.clube_casa_id)?.escudos['30x30']}}" alt="">
+        </ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          <ion-col col-3>
+            {{p?.placar_oficial_mandante}}
+          </ion-col>
+          <ion-col>Vs.</ion-col>
+          <ion-col col-3>
+            {{p?.placar_oficial_visitante}}
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-5>
+        <ion-col col-3>
+          <img class="team-holder" src="{{getTeamById(p.clube_visitante_id)?.escudos['30x30']}}" alt="">
+        </ion-col>
+        <ion-col col-3>
+          {{p?.clube_visitante_posicao}}&deg;
+        </ion-col>
+        <ion-col col-3>
+          {{p?.aproveitamento_visitante[0]}}
+        </ion-col>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content> -->
+
+<ion-content>
+  <ion-grid text-center class="grid-matches">
+    <ion-row *ngFor="let p of info?.partidas">
+      <ion-col>
+
+        <ion-row justify-content-center>
+          {{p.local}},  {{p.partida_data | date: 'short': 'dd/MM': 'pt-BR'}}
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="circle-drawer">
+              <div *ngFor="let aprov of p.aproveitamento_mandante">
+                <!-- SVG para desenhar um círculo que ilustra vitória, derrota ou empate de time -->
+                <svg [attr.height]="8" [attr.width]="8">
+                  <circle [attr.cx]="4" [attr.cy]="4" [attr.r]="3" [style.fill]="getPerfomanceColor(aprov)" />
+                </svg>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col>
+            {{p?.clube_casa_posicao}}&deg;
+          </ion-col>
+          <ion-col>
+            <img class="team-holder" src="{{getTeamById(p.clube_casa_id)?.escudos['30x30']}}" alt="">
+          </ion-col>
+          <ion-col col-3>
+            <ion-col col-5>
+              {{p?.placar_oficial_mandante}}
+            </ion-col>
+            <ion-col col-2>
+              Vs.
+            </ion-col>
+            <ion-col col-5>
+              {{p?.placar_oficial_visitante}}
+            </ion-col>
+          </ion-col>
+          <ion-col>
+            <img class="team-holder" src="{{getTeamById(p.clube_visitante_id)?.escudos['30x30']}}" alt="">
+          </ion-col>
+          <ion-col>
+            {{p?.clube_visitante_posicao}}&deg;
+          </ion-col>
+          <ion-col>
+            <div class="circle-drawer">
+              <div *ngFor="let aprov of p.aproveitamento_visitante">
+                <!-- SVG para desenhar um círculo que ilustra vitória, derrota ou empate de time -->
+                <svg [attr.height]="8" [attr.width]="8">
+                  <circle [attr.cx]="4" [attr.cy]="4" [attr.r]="3" [style.fill]="getPerfomanceColor(aprov)" />
+                </svg>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>

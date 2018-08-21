@@ -1,5 +1,17 @@
 {
   "name": "cartola-stats",
-  "integrations": {},
-  "type": "ionic-angular"
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/cartola",
+      "proxyUrl": "https://api.cartolafc.globo.com"
+    },
+    {
+      "path": "/jsonapi",
+      "proxyUrl": "https://jsonplaceholder.typicode.com"
+    }
+  ]
 }

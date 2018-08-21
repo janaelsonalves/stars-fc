@@ -1,0 +1,18 @@
+page-matches {
+
+    .grid-matches .col{
+        align-self: center;
+    }
+    
+    .team-holder{
+        height: 30px;
+        width: 30px;
+    }
+
+    .circle-drawer{
+        display: flex; 
+        flex: 1; 
+        flex-direction: col; 
+        place-content: center start;
+    }
+}
