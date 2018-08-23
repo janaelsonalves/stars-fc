@@ -15,6 +15,7 @@ import { MyApp } from './app.component';
 import { CartolaProvider } from '../providers/cartola/cartola';
 import { AuthProvider } from '../providers/auth/auth';
 import { FirebaseProvider } from '../providers/firebase/firebase';
+import { WeatherProvider } from '../providers/weather/weather';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FirebaseProvider } from '../providers/firebase/firebase';
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     CartolaProvider,
     AuthProvider,
-    FirebaseProvider
+    FirebaseProvider,
+    WeatherProvider
   ]
 })
 export class AppModule { }

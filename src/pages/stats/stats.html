@@ -17,5 +17,14 @@
 
 
 <ion-content padding>
- All stats
+
+  <ion-card>
+    <ion-card-header>
+      Performance Chart (20)
+    </ion-card-header>
+    <ion-card-content>
+      <app-chart [canvasId]="canvas"> </app-chart>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

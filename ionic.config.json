@@ -12,6 +12,10 @@
     {
       "path": "/jsonapi",
       "proxyUrl": "https://jsonplaceholder.typicode.com"
+    },
+    {
+      "path": "/weather",
+      "proxyUrl": "https://samples.openweathermap.org"
     }
   ]
 }
