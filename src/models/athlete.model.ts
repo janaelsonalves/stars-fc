@@ -16,6 +16,7 @@ export interface Athlete {
     variacao_num: number;
     media_num: number;
     jogos_num: number;
-    scout: number[];
+    scout: number[] | any;
     pontuacao_total: number;
+
 }

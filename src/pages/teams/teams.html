@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>teams</ion-title>
   </ion-navbar>
 
@@ -14,6 +14,20 @@
 
 
 <ion-content padding>
-  <!-- <canvas id="bar-chart"></canvas> -->
-  <canvas-chart [id]="canvas"></canvas-chart>
+  <ion-grid>
+    <ion-row>
+      <button *ngFor="let team of teams" ion-item (click)="showTeam(team)">
+        <ion-col col-2>
+          <img [src]="getShieldImage(team)" />
+        </ion-col>
+        <ion-col col-8>
+          <h3>{{team.nome}}</h3>
+        </ion-col>
+        <ion-col col-2 justify-content-right>
+          <h2>{{team.posicao}}&deg; </h2>
+        </ion-col>
+      </button>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

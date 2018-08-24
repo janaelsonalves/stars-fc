@@ -1,15 +1,6 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import Chart from 'chart.js';
-import { WeatherProvider } from '../../providers/weather/weather';
-
-
-/**
- * Generated class for the TeamsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { CartolaProvider } from '../../providers/cartola/cartola';
 
 @IonicPage()
 @Component({
@@ -18,104 +9,69 @@ import { WeatherProvider } from '../../providers/weather/weather';
 })
 export class TeamsPage {
 
-  barChart: Chart;
-  dailyForecast: any;
+  data: any;
+  teams: any[];
 
-  @ViewChild("myCanvas") myCanvas;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private cartola: CartolaProvider) {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private weather: WeatherProvider) {
-
-
-    let context = this.barChart;
-
-    this.weather.getDailyForecast()
-      .subscribe(res => {
-
-        let maxTemps = res['list'].map(res => res.main.temp_min);
-        let minTemps = res['list'].map(res => res.main.temp_min);
-        let dates = res['list'].map(res => res.dt);
-
-        let weatherDates = dates.map(res => {
-          return new Date(res * 1000).toLocaleTimeString('en', { year: 'numeric', month: 'short', day: 'numeric' });
-        });
-
-        this.barChart = new Chart('bar-chart', {
-          type: 'line',
-          data: {
-            labels: weatherDates,
-            datasets: [
-              {
-                data: maxTemps,
-                borderColor: '#3cba9f',
-                fill: false
-              },
-              {
-                data: minTemps,
-                borderColor: '#ffcc00',
-                fill: false
-              }
-            ]
-          },
-          options: {
-            legend: {
-              display: false,
-            },
-            scales: {
-              xAxes: [
-                {
-                  display: true,
-                }
-              ],
-              yAxes: [
-                {
-                  display: true,
-                }
-              ]
-            }
-          }
-        })
-
-      });
   }
 
-  createChart(context, type, data, options) {
-    return new Chart(context, {
-      type: type,
-      data: data,
-      options: options
-    });
-  }
-
-  getChartOptions(displayLegend: boolean = false, displayXAxes: boolean = true, displayYAxes: boolean = true, beginAtZero: boolean = true) {
-    return {
-      legend: {
-        display: displayLegend,
-      },
-      scales: {
-        xAxes: [
-          {
-            display: displayXAxes,
-          }
-        ],
-        yAxes: [
-          {
-            display: displayYAxes,
-            beginAtZero: beginAtZero,
-          }
-        ]
-      }
-    }
-  }
-
-  getChartData(labels, dataSets) {
-    return {
-      labels: labels,
-      datasets: dataSets,
-    }
-  }
 
   ionViewDidLoad() {
-
+    this.cartola.getAllData()
+      .subscribe(data => {
+        this.teams = this.getAllTeams(data['clubes']);
+        this.teams.sort(this.compareTeamsByPosition);
+        this.data = data;
+        console.log(this.getTeamAthletesById(262));
+      })
   }
 
+  getAllTeams(object: any): any[] {
+    let array = [];
+    for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        const element = object[key];
+        array.push(element);
+      }
+    }
+    return array;
+  }
+
+  getShieldImage(team: any, size: number = 0) {
+    let image = '';
+    switch (size) {
+      case 60:
+        image = team.escudos['60x60'];
+        break;
+      case 45:
+        image = team.escudos['45x45'];
+        break;
+      default:
+        image = team.escudos['30x30'];
+        break;
+    }
+    return image;
+  }
+
+  compareTeamsByPosition(a: any, b: any) {
+    return a.posicao - b.posicao;
+  }
+
+  showTeam(team: any) {
+    this.navCtrl.push('TeamDetailsPage', {
+      data: {
+        info: team,
+        athletes: this.getTeamAthletesById(team.id)
+      }
+    })
+  }
+
+  getTeamAthletesById(teamId: any) {
+    let athletes: any[] = this.data['atletas'];
+    let scouts = athletes.filter(athlete => {
+      return athlete.clube_id == teamId;
+    })
+    return scouts;
+  }
 }

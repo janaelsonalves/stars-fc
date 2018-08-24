@@ -1,4 +1,4 @@
-page-teams {
+page-team-details {
 
     ion-label {
         margin: 0;
@@ -14,5 +14,11 @@ page-teams {
         white-space: nowrap;
         align-items:  center;
         place-content: flex-start space-between;
+    }
+
+    .icon-avatar{        
+        background-image: ur('../../assets/imgs/round_account_circle_black_48dp.png');
+        background-repeat: no-repeat;
+        background-position: left top;
     }
 }

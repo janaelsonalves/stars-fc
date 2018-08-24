@@ -1,0 +1,57 @@
+<!--
+  Generated template for the TeamDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{team?.info.nome}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="detailsType" color="secondary">
+    <ion-segment-button value="stats" color="primary">
+      <ion-icon name="stats" item-start></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="athletes" color="primary">
+        <ion-icon name="people" item-start></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+  <!-- <ion-grid [virtualScroll]="team?.athletes" approxItemHeight="48px" approxItemWidth="100%">
+    <ion-row *virtualItem="let athlete">
+      <button ion-item (click)="showDetails(athlete)"> -->
+  <div [ngSwitch]="detailsType">
+    <ion-item *ngSwitchCase="'stats'">
+      Stats
+    </ion-item>
+    <ion-item *ngSwitchCase="'athletes'">
+      <ion-grid>
+        <ion-row *ngFor="let athlete of team?.athletes">
+          <button ion-item (click)="showDetails(athlete)">
+            <ion-col col-2>
+              <ion-avatar>
+                <img [src]="getShieldImage(athlete?.foto)" />
+                <!-- <img *ngIf="athlete?.foto" [src]="getShieldImage(athlete?.foto)" />
+                <div *ngIf="!athlete?.foto" class="icon-avatar"></div> -->
+              </ion-avatar>
+            </ion-col>
+            <ion-col col-7>
+              <h2>{{athlete?.apelido}}</h2>
+              <h3>{{getPositionById(athlete?.posicao_id).nome}}</h3>
+            </ion-col>
+            <ion-col style="text-align: right;" col-3 justify-content-right>
+              <h2>{{getTotalPoints(athlete) | number: '1.2-2': 'pt-BR'}}</h2>
+              <h3>{{athlete?.media_num | number: '1.2-2': 'pt-BR'}} </h3>
+            </ion-col>
+          </button>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+
+</ion-content>
