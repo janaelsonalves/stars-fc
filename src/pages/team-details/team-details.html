@@ -8,6 +8,11 @@
 
   <ion-navbar color="primary">
     <ion-title>{{team?.info.nome}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="options"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -19,7 +24,7 @@
       <ion-icon name="stats" item-start></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="athletes" color="primary">
-        <ion-icon name="people" item-start></ion-icon>
+      <ion-icon name="people" item-start></ion-icon>
     </ion-segment-button>
   </ion-segment>
   <!-- <ion-grid [virtualScroll]="team?.athletes" approxItemHeight="48px" approxItemWidth="100%">
@@ -27,7 +32,42 @@
       <button ion-item (click)="showDetails(athlete)"> -->
   <div [ngSwitch]="detailsType">
     <ion-item *ngSwitchCase="'stats'">
-      Stats
+      <ion-grid>
+        <ion-row class="scout-header">
+          <ion-col col-6>Scout de Ataque</ion-col>
+          <ion-col col-6>Scout de Defesa</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            <ion-row *ngFor="let scout of (filterScoutsByType('ataque'))">
+              <ion-col>
+                {{scout?.sigla}}
+              </ion-col>
+              <ion-col>
+                {{scout?.quantidade}}
+              </ion-col>
+              <ion-col>
+                <!-- {{scout?.getTotalScore()}} -->
+                {{(scout?.quantidade * scout?.pontos) | number: '1.2-2': 'pt-BR'}}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-6>
+            <ion-row *ngFor="let scout of (filterScoutsByType('defesa'))">
+              <ion-col>
+                {{scout?.sigla}}
+              </ion-col>
+              <ion-col>
+                {{scout?.quantidade}}
+              </ion-col>
+              <ion-col>
+                <!-- {{scout?.getTotalScore()}} -->
+                {{(scout?.quantidade * scout?.pontos) | number: '1.2-2': 'pt-BR'}}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
     <ion-item *ngSwitchCase="'athletes'">
       <ion-grid>

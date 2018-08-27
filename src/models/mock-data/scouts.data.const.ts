@@ -1,6 +1,6 @@
 import { Scout } from "../scout.model";
 
-export const SCOUTS: Scout[] = [
+export const SCOUTS: any[] = [
     {
         sigla: "G",
         estatistica: "Gol",

@@ -8,6 +8,7 @@ import { Img } from 'ionic-angular/components/img/img-interface';
 import { POSITIONS } from '../../models/mock-data/position.data.const';
 import { SCOUTS } from '../../models/mock-data/scouts.data.const';
 import { Position } from '../../models/position.model';
+import { Scout } from '../../models/scout.model';
 
 @IonicPage()
 @Component({
@@ -18,13 +19,40 @@ export class TeamDetailsPage {
 
   team: any;
   content: any;
+
+  /* Segment toggle*/
   detailsType: any = "stats";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.team = navParams.get('data');
-    this.team.athletes.sort(this.compareAthleteByMedia);
-    console.log(this.getAllTeamScouts());
+  scouts: Scout[] = [];
 
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    // Get param data
+    this.team = navParams.get('data');
+
+    // Sort athletes by media
+    this.team.athletes.sort(this.compareAthleteByMedia);
+
+    // Get all scouts of team
+    let allScouts = this.getAllTeamScouts();
+
+    // Count all scouts of team
+    this.scouts = SCOUTS.map(sct => {
+      let scout = <Scout>sct;
+      scout.quantidade = allScouts.filter(value => {
+        return value[scout.sigla];
+      }).reduce((prev, cur) => prev + cur[scout.sigla], 0);
+      return scout;
+    }).sort((a, b) => {
+      return this.getTotalScore(a) <= this.getTotalScore(b) ? 1 : -1;
+    })
+  }
+
+  public getTotalScore(scout: Scout){
+    return scout.pontos * scout.quantidade;
+  }
+
+  filterScoutsByType(type: any) {
+    return this.scouts.filter(scout => scout.tipo.toLocaleLowerCase() == type.toLocaleLowerCase());
   }
 
   ionViewDidLoad() {
@@ -39,6 +67,14 @@ export class TeamDetailsPage {
         }
       };
     }
+  }
+
+  getTotalScoutByType(type: any, scouts: any[]) {
+    return scouts.filter(value => {
+      return value[type];
+    }).reduce((prev, cur) => {
+      prev + cur[type]
+    }, 0);
   }
 
   getShieldImage(src: string) {
@@ -70,7 +106,6 @@ export class TeamDetailsPage {
     this.team.athletes.map(elem => {
       if (!this.isEmpty(elem.scout)) {
         teamScouts.push(elem.scout);
-        console.log(this.getArrayObject(elem.scout));        
       }
     })
     return teamScouts;
@@ -87,13 +122,13 @@ export class TeamDetailsPage {
         array.push({
           type: key,
           quantity: object[key]
-        });        
+        });
       }
     }
     return array;
   }
 
-  getScouts(){
+  getScouts() {
     SCOUTS.forEach(sc => {
       this.team.athletes.map(
 
@@ -101,7 +136,7 @@ export class TeamDetailsPage {
     })
   }
 
-  sumSingleScout(scout){
+  sumSingleScout(scout) {
     let tmpAthletes = this.team.athletes;
     tmpAthletes.forEach(res => {
 
