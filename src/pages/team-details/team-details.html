@@ -32,21 +32,39 @@
       <button ion-item (click)="showDetails(athlete)"> -->
   <div [ngSwitch]="detailsType">
     <ion-item *ngSwitchCase="'stats'">
-      <ion-grid>
+      <ion-grid class="scout-container" text-center>
         <ion-row class="scout-header">
-          <ion-col col-6>Scout de Ataque</ion-col>
-          <ion-col col-6>Scout de Defesa</ion-col>
+          <ion-col col-6 class="center">
+            <ion-row class="scout-header">
+              Ataque
+            </ion-row>
+            <ion-row>
+              <ion-col col-4>Scout</ion-col>
+              <ion-col col-4>Qtd</ion-col>
+              <ion-col col-4>Pts</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-6 class="center">
+            <ion-row class="scout-header">
+              Defesa
+            </ion-row>
+            <ion-row>
+              <ion-col col-4>Scout</ion-col>
+              <ion-col col-4>Qtd</ion-col>
+              <ion-col col-4>Pts</ion-col>
+            </ion-row>
+          </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col col-6>
+        <ion-row style="font-size: 0.75em">
+          <ion-col col-6 class="border-right">
             <ion-row *ngFor="let scout of (filterScoutsByType('ataque'))">
-              <ion-col>
+              <ion-col col-4 class="left">
                 {{scout?.sigla}}
               </ion-col>
-              <ion-col>
+              <ion-col col-4 class="center">
                 {{scout?.quantidade}}
               </ion-col>
-              <ion-col>
+              <ion-col col-4 [style.color]="getColor(scout?.pontos)" class="right">
                 <!-- {{scout?.getTotalScore()}} -->
                 {{(scout?.quantidade * scout?.pontos) | number: '1.2-2': 'pt-BR'}}
               </ion-col>
@@ -54,13 +72,13 @@
           </ion-col>
           <ion-col col-6>
             <ion-row *ngFor="let scout of (filterScoutsByType('defesa'))">
-              <ion-col>
+              <ion-col col-4 class="left">
                 {{scout?.sigla}}
               </ion-col>
-              <ion-col>
+              <ion-col col-4 class="center">
                 {{scout?.quantidade}}
               </ion-col>
-              <ion-col>
+              <ion-col col-4 [style.color]="getColor(scout?.pontos)" class="right">
                 <!-- {{scout?.getTotalScore()}} -->
                 {{(scout?.quantidade * scout?.pontos) | number: '1.2-2': 'pt-BR'}}
               </ion-col>

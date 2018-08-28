@@ -21,4 +21,33 @@ page-team-details {
         background-repeat: no-repeat;
         background-position: left top;
     }
+
+    .scout-container{
+        background: 1px color($colors, primary);;
+        color: #fff;
+    }
+
+    .scout-header{
+        //background: color($colors, primary);
+        border-bottom: 1px solid #fff;
+        color: #fff;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .border-right{
+        border-right: 1px solid #fff;
+    }
+
+    .left{
+        text-align-last: left;
+    }
+
+    .center{
+        text-align: center;
+    }
+
+    .right{
+        text-align: right;
+    }
 }

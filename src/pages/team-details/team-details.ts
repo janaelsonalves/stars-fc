@@ -47,7 +47,7 @@ export class TeamDetailsPage {
     })
   }
 
-  public getTotalScore(scout: Scout){
+  public getTotalScore(scout: Scout) {
     return scout.pontos * scout.quantidade;
   }
 
@@ -136,10 +136,7 @@ export class TeamDetailsPage {
     })
   }
 
-  sumSingleScout(scout) {
-    let tmpAthletes = this.team.athletes;
-    tmpAthletes.forEach(res => {
-
-    })
+  getColor(scout: any) {
+    return (scout >= 0) ? "#fff" : '#ff7400';
   }
 }
